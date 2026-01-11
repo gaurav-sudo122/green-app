@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tree Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #eef4f1;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .header-box {
+      background: #f4f4f4;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1f2d2b;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #d2f6dc;
+      color: #0e7b34;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .ai-btn {
+      width: 100%;
+      background: #3fa87a;
+      color: white;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
+    }
+
+    .ai-btn:hover {
+      background: #2e7a58;
+    }
+
+    .sub {
+      color: #555;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #2a3a37;
+    }
+
+    .status-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .status-box img {
+      width: 22px;
+    }
+
+    .indicator {
+      height: 4px;
+      background: #c0e9c7;
+      border-radius: 10px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .water-buttons button {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #cfe7db;
+      background: #f8fffb;
+      cursor: pointer;
+      width: 22%;
+    }
+
+    .water-buttons .active {
+      background: #33a56d;
+      color: white;
+      border-color: #33a56d;
+    }
+
+    .green-box {
+      background: #e8fcee;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #21633c;
+      margin-top: 12px;
+      border-left: 4px solid #1ea157;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER BOX -->
+    <div class="card">
+      <div class="header-box">
+        <div class="title" id="treeTitle">Tree Name</div>
+        <div class="badge">Confidence: High</div>
+        <div class="sub" id="treeLocation">Home Backyard</div>
+
+        <!-- AI BUTTON ADDED HERE -->
+        <button class="ai-btn" onclick="goToAI()">Analyze Tree Health (AI)</button>
+      </div>
+    </div>
+
+    <!-- CURRENT CONDITIONS -->
+    <div class="card">
+      <div class="section-title">Current Conditions</div>
+
+      <div class="status-box">
+        <img src="https://img.icons8.com/fluency/48/water.png" />
+        <span>Water: <b>Moderate</b></span>
+      </div>
+
+      <div class="status-box">
+        <img src="https://img.icons8.com/color/48/sun.png" />
+        <span>Sunlight: <b>4–6 hrs</b></span>
+      </div>
+
+      <div class="status-box">
+        <img src="https://img.icons8.com/emoji/48/red-circle-emoji.png" />
+        <span>Temperature: <b>28–32°C</b></span>
+      </div>
+    </div>
+
+    <!-- GROWTH TREND -->
+    <div class="card">
+      <div class="section-title">Growth Trend</div>
+      <div class="indicator"></div>
+      <p style="margin-top:10px;">Improving</p>
+    </div>
+
+    <!-- WATERING INPUT -->
+    <div class="card">
+      <div class="section-title">How much water did you give today?</div>
+
+      <div class="water-buttons" style="display:flex; gap:10px;">
+        <button onclick="selectWater(this)">0.5 L</button>
+        <button onclick="selectWater(this)">1 L</button>
+        <button onclick="selectWater(this)">2 L</button>
+        <button onclick="selectWater(this)">Custom</button>
+      </div>
+
+      <div class="green-box">
+        Today's watering is sufficient.<br>
+        Next watering recommended: <b>after 3 days</b>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Display info saved from login
+    document.getElementById("treeTitle").innerText = localStorage.getItem("userTree") || "Your Tree";
+    document.getElementById("treeLocation").innerText = localStorage.getItem("userLocation") || "Home Backyard";
+
+    // Water selection button logic
+    function selectWater(btn) {
+      document.querySelectorAll(".water-buttons button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      localStorage.setItem("waterGiven", btn.innerText);
+    }
+
+    // Redirect to AI page
+    function goToAI() {
+      window.location.href = "tree-ai.html";
+    }
+  </script>
+
+</body>
+
+</html>
